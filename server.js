@@ -13,11 +13,13 @@ app.use(express.json());
 app.use('/contacts', contactsRoutes);
 
 app.get('/', (req, res) => {
-  res.send('Contacts API is running successfully.');
+  res.redirect('/contacts');
 });
 
 connectDB().then(() => {
   app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Contacts API is running successfully on port ${PORT}`);
   });
+}).catch(err => {
+  console.error('Failed to connect to DB', err);
 });
