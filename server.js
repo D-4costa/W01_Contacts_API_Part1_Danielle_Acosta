@@ -16,10 +16,12 @@ app.get('/', (req, res) => {
   res.redirect('/contacts');
 });
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Contacts API is running successfully on port ${PORT}`);
+connectDB()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Contacts API is running successfully on port ${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error('Failed to connect to DB', err);
   });
-}).catch(err => {
-  console.error('Failed to connect to DB', err);
-});
