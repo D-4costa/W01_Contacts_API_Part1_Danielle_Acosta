@@ -4,6 +4,7 @@ import { ObjectId } from 'mongodb';
 
 const router = express.Router();
 
+// GET all contacts
 router.get('/', async (req, res) => {
   try {
     const db = getDB();
@@ -15,6 +16,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// GET contact by id
 router.get('/:id', async (req, res) => {
   try {
     const db = getDB();
@@ -37,6 +39,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// POST create new contact
 router.post('/', async (req, res) => {
   try {
     const db = getDB();
@@ -47,14 +50,18 @@ router.post('/', async (req, res) => {
     }
 
     const newContact = { firstName, lastName, email, favoriteColor, birthday };
+
     const result = await db.collection('contacts').insertOne(newContact);
-    res.status(201).json(result);
+
+    res.status(201).json({ id: result.insertedId });
+
   } catch (error) {
     console.error('Error creating contact:', error);
     res.status(500).json({ message: 'Internal server error while creating contact.' });
   }
 });
 
+// PUT update contact
 router.put('/:id', async (req, res) => {
   try {
     const db = getDB();
@@ -66,22 +73,25 @@ router.put('/:id', async (req, res) => {
     }
 
     const updatedContact = { firstName, lastName, email, favoriteColor, birthday };
-    const result = await db.collection('contacts').updateOne(
+
+    const result = await db.collection('contacts').replaceOne(
       { _id: new ObjectId(id) },
-      { $set: updatedContact }
+      updatedContact
     );
 
     if (result.matchedCount === 0) {
       return res.status(404).json({ message: 'Contact not found.' });
     }
 
-    res.status(200).json({ message: 'Contact updated successfully.' });
+    res.status(204).send();
+
   } catch (error) {
     console.error('Error updating contact:', error);
     res.status(500).json({ message: 'Internal server error while updating contact.' });
   }
 });
 
+// DELETE contact
 router.delete('/:id', async (req, res) => {
   try {
     const db = getDB();
@@ -97,7 +107,8 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Contact not found.' });
     }
 
-    res.status(200).json({ message: 'Contact deleted successfully.' });
+    res.status(204).send();
+
   } catch (error) {
     console.error('Error deleting contact:', error);
     res.status(500).json({ message: 'Internal server error while deleting contact.' });
@@ -105,3 +116,4 @@ router.delete('/:id', async (req, res) => {
 });
 
 export default router;
+
