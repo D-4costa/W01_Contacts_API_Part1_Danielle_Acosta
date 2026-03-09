@@ -50,11 +50,9 @@ router.post('/', async (req, res) => {
     }
 
     const newContact = { firstName, lastName, email, favoriteColor, birthday };
-
     const result = await db.collection('contacts').insertOne(newContact);
 
     res.status(201).json({ id: result.insertedId });
-
   } catch (error) {
     console.error('Error creating contact:', error);
     res.status(500).json({ message: 'Internal server error while creating contact.' });
@@ -74,17 +72,16 @@ router.put('/:id', async (req, res) => {
 
     const updatedContact = { firstName, lastName, email, favoriteColor, birthday };
 
-    const result = await db.collection('contacts').replaceOne(
+    const result = await db.collection('contacts').updateOne(
       { _id: new ObjectId(id) },
-      updatedContact
+      { $set: updatedContact }
     );
 
     if (result.matchedCount === 0) {
       return res.status(404).json({ message: 'Contact not found.' });
     }
 
-    res.status(204).send();
-
+    res.status(200).json({ message: 'Contact updated successfully' });
   } catch (error) {
     console.error('Error updating contact:', error);
     res.status(500).json({ message: 'Internal server error while updating contact.' });
@@ -107,8 +104,7 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Contact not found.' });
     }
 
-    res.status(204).send();
-
+    res.status(200).json({ message: 'Contact deleted successfully' });
   } catch (error) {
     console.error('Error deleting contact:', error);
     res.status(500).json({ message: 'Internal server error while deleting contact.' });
