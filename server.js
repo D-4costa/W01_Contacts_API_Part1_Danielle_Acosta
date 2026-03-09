@@ -4,7 +4,6 @@ dotenv.config();
 import express from 'express';
 import contactsRoutes from './routes/contacts.js';
 import { connectDB } from './models/db.js';
-
 import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
 
@@ -23,12 +22,12 @@ app.use('/contacts', contactsRoutes);
 // Swagger docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// Home route
+// Home route redirects to Swagger
 app.get('/', (req, res) => {
   res.redirect('/api-docs');
 });
 
-// Start server
+// Start server after DB connection
 connectDB()
   .then(() => {
     app.listen(PORT, () => {
@@ -40,4 +39,3 @@ connectDB()
     console.error('Failed to connect to DB', err);
     process.exit(1);
   });
-
