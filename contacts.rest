@@ -3,3 +3,33 @@ GET http://localhost:3000/contacts
 
 ### Get single contact (replace ID)
 GET http://localhost:3000/contacts/REPLACE_WITH_ID
+
+
+### Create new contact
+POST http://localhost:3000/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Daniel",
+  "lastName": "Acosta",
+  "email": "daniel@example.com",
+  "favoriteColor": "blue",
+  "birthday": "1995-06-10"
+}
+
+
+### Update contact (replace ID)
+PUT http://localhost:3000/contacts/REPLACE_WITH_ID
+Content-Type: application/json
+
+{
+  "firstName": "Daniel",
+  "lastName": "Acosta",
+  "email": "daniel.updated@example.com",
+  "favoriteColor": "green",
+  "birthday": "1995-06-10"
+}
+
+
+### Delete contact (replace ID)
+DELETE http://localhost:3000/contacts/REPLACE_WITH_ID
