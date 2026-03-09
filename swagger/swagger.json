@@ -1,0 +1,58 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Contacts API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://w01-contacts-api-part1-danielle-acosta.onrender.com"
+    }
+  ],
+  "paths": {
+    "/contacts": {
+      "get": {
+        "summary": "Get all contacts",
+        "responses": {
+          "200": {
+            "description": "List of contacts"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create contact",
+        "responses": {
+          "201": {
+            "description": "Contact created"
+          }
+        }
+      }
+    },
+    "/contacts/{id}": {
+      "get": {
+        "summary": "Get contact by id",
+        "responses": {
+          "200": {
+            "description": "Single contact"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update contact",
+        "responses": {
+          "200": {
+            "description": "Contact updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete contact",
+        "responses": {
+          "200": {
+            "description": "Contact deleted"
+          }
+        }
+      }
+    }
+  }
+}
