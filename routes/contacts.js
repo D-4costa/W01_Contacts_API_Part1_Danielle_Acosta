@@ -70,6 +70,11 @@ router.put('/:id', async (req, res) => {
       return res.status(400).json({ message: 'Invalid contact ID format.' });
     }
 
+    // VALIDATION
+    if (!firstName || !lastName || !email || !favoriteColor || !birthday) {
+      return res.status(400).json({ message: 'All fields are required.' });
+    }
+
     const updatedContact = { firstName, lastName, email, favoriteColor, birthday };
 
     const result = await db.collection('contacts').updateOne(
@@ -112,4 +117,3 @@ router.delete('/:id', async (req, res) => {
 });
 
 export default router;
-
