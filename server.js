@@ -3,6 +3,7 @@ dotenv.config();
 
 import express from 'express';
 import contactsRoutes from './routes/contacts.js';
+import tasksRoutes from './routes/tasks.js'; // NUEVO
 import { connectDB } from './models/db.js';
 import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
@@ -18,6 +19,7 @@ app.use(express.json());
 
 // API routes
 app.use('/contacts', contactsRoutes);
+app.use('/tasks', tasksRoutes); // NUEVO
 
 // Swagger docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
