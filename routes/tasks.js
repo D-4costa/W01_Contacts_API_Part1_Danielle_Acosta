@@ -4,20 +4,21 @@ import { ObjectId } from 'mongodb';
 
 const router = express.Router();
 
-// GET all tasks
-router.get('/', async (req, res) => {
+
+// ✅ GET all tasks
+router.get('/', async (req, res, next) => {
   try {
     const db = getDB();
     const tasks = await db.collection('tasks').find().toArray();
     res.status(200).json(tasks);
   } catch (error) {
-    console.error('Error retrieving tasks:', error);
-    res.status(500).json({ message: 'Internal server error while retrieving tasks.' });
+    next(error);
   }
 });
 
-// GET task by id
-router.get('/:id', async (req, res) => {
+
+// ✅ GET task by id
+router.get('/:id', async (req, res, next) => {
   try {
     const db = getDB();
     const { id } = req.params;
@@ -34,19 +35,24 @@ router.get('/:id', async (req, res) => {
 
     res.status(200).json(task);
   } catch (error) {
-    console.error('Error retrieving task:', error);
-    res.status(500).json({ message: 'Internal server error while retrieving task.' });
+    next(error);
   }
 });
 
-// POST task
-router.post('/', async (req, res) => {
+
+// ✅ POST task
+router.post('/', async (req, res, next) => {
   try {
     const db = getDB();
     const { title, description, status } = req.body;
 
+    // 🔥 VALIDATION
     if (!title || !description || !status) {
       return res.status(400).json({ message: 'All fields are required.' });
+    }
+
+    if (typeof title !== 'string' || typeof description !== 'string') {
+      return res.status(400).json({ message: 'Invalid data types.' });
     }
 
     const newTask = { title, description, status };
@@ -56,13 +62,13 @@ router.post('/', async (req, res) => {
     res.status(201).json({ id: result.insertedId });
 
   } catch (error) {
-    console.error('Error creating task:', error);
-    res.status(500).json({ message: 'Internal server error while creating task.' });
+    next(error);
   }
 });
 
-// PUT task
-router.put('/:id', async (req, res) => {
+
+// ✅ PUT task
+router.put('/:id', async (req, res, next) => {
   try {
     const db = getDB();
     const { id } = req.params;
@@ -90,13 +96,13 @@ router.put('/:id', async (req, res) => {
     res.status(200).json({ message: 'Task updated successfully' });
 
   } catch (error) {
-    console.error('Error updating task:', error);
-    res.status(500).json({ message: 'Internal server error while updating task.' });
+    next(error);
   }
 });
 
-// DELETE task
-router.delete('/:id', async (req, res) => {
+
+// ✅ DELETE task
+router.delete('/:id', async (req, res, next) => {
   try {
     const db = getDB();
     const { id } = req.params;
@@ -114,8 +120,7 @@ router.delete('/:id', async (req, res) => {
     res.status(200).json({ message: 'Task deleted successfully' });
 
   } catch (error) {
-    console.error('Error deleting task:', error);
-    res.status(500).json({ message: 'Internal server error while deleting task.' });
+    next(error);
   }
 });
 
