@@ -3,7 +3,7 @@ dotenv.config();
 
 import express from 'express';
 import contactsRoutes from './routes/contacts.js';
-import tasksRoutes from './routes/tasks.js'; // NUEVO
+import tasksRoutes from './routes/tasks.js';
 import { connectDB } from './models/db.js';
 import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
@@ -19,7 +19,7 @@ app.use(express.json());
 
 // API routes
 app.use('/contacts', contactsRoutes);
-app.use('/tasks', tasksRoutes); // NUEVO
+app.use('/tasks', tasksRoutes);
 
 // Swagger docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -28,6 +28,14 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.get('/', (req, res) => {
   res.redirect('/api-docs');
 });
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.status || 500).json({
+    message: err.message || 'Something went wrong!',
+  });
+});
+
 
 // Start server after DB connection
 connectDB()
@@ -41,3 +49,4 @@ connectDB()
     console.error('Failed to connect to DB', err);
     process.exit(1);
   });
+
