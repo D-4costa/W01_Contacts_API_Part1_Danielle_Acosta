@@ -1,7 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { getDB } from '../models/db.js';
 
-// GET ALL
 export const getAllContacts = async (req, res, next) => {
   try {
     const db = getDB();
@@ -12,7 +11,6 @@ export const getAllContacts = async (req, res, next) => {
   }
 };
 
-// GET ONE
 export const getSingleContact = async (req, res, next) => {
   try {
     const db = getDB();
@@ -35,7 +33,6 @@ export const getSingleContact = async (req, res, next) => {
   }
 };
 
-// POST
 export const createContact = async (req, res, next) => {
   try {
     const db = getDB();
@@ -59,7 +56,6 @@ export const createContact = async (req, res, next) => {
   }
 };
 
-// PUT
 export const updateContact = async (req, res, next) => {
   try {
     const db = getDB();
@@ -89,7 +85,6 @@ export const updateContact = async (req, res, next) => {
   }
 };
 
-// DELETE
 export const deleteContact = async (req, res, next) => {
   try {
     const db = getDB();
