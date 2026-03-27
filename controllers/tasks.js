@@ -1,8 +1,6 @@
 import { ObjectId } from 'mongodb';
 import { getDB } from '../models/db.js';
 
-
-// ✅ GET ALL TASKS
 export const getAllTasks = async (req, res, next) => {
   try {
     const db = getDB();
@@ -13,8 +11,6 @@ export const getAllTasks = async (req, res, next) => {
   }
 };
 
-
-// ✅ GET SINGLE TASK
 export const getSingleTask = async (req, res, next) => {
   try {
     const db = getDB();
@@ -37,14 +33,11 @@ export const getSingleTask = async (req, res, next) => {
   }
 };
 
-
-// ✅ CREATE TASK
 export const createTask = async (req, res, next) => {
   try {
     const db = getDB();
     const { title, description, status } = req.body;
 
-    // 🔥 VALIDATION
     if (!title || !description || !status) {
       return res.status(400).json({ message: 'All fields are required' });
     }
@@ -65,8 +58,6 @@ export const createTask = async (req, res, next) => {
   }
 };
 
-
-// ✅ UPDATE TASK
 export const updateTask = async (req, res, next) => {
   try {
     const db = getDB();
@@ -96,8 +87,6 @@ export const updateTask = async (req, res, next) => {
   }
 };
 
-
-// ✅ DELETE TASK
 export const deleteTask = async (req, res, next) => {
   try {
     const db = getDB();
