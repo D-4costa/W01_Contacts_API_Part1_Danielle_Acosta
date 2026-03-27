@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://w01-contacts-api-part1-danielle-acosta.onrender.com"
+      "url": "/"
     }
   ],
   "components": {
@@ -35,22 +35,12 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "firstName",
-                  "lastName",
-                  "email",
-                  "favoriteColor",
-                  "birthday"
-                ],
-                "properties": {
-                  "firstName": { "type": "string" },
-                  "lastName": { "type": "string" },
-                  "email": { "type": "string" },
-                  "favoriteColor": { "type": "string" },
-                  "birthday": { "type": "string" }
-                }
+              "example": {
+                "firstName": "Danielle",
+                "lastName": "Acosta",
+                "email": "danielle@example.com",
+                "favoriteColor": "blue",
+                "birthday": "1998-05-10"
               }
             }
           }
@@ -95,22 +85,12 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "firstName",
-                  "lastName",
-                  "email",
-                  "favoriteColor",
-                  "birthday"
-                ],
-                "properties": {
-                  "firstName": { "type": "string" },
-                  "lastName": { "type": "string" },
-                  "email": { "type": "string" },
-                  "favoriteColor": { "type": "string" },
-                  "birthday": { "type": "string" }
-                }
+              "example": {
+                "firstName": "Danielle",
+                "lastName": "Acosta",
+                "email": "danielle@example.com",
+                "favoriteColor": "green",
+                "birthday": "1998-05-10"
               }
             }
           }
@@ -142,7 +122,6 @@
         }
       }
     },
-
     "/tasks": {
       "get": {
         "summary": "Get all tasks",
@@ -158,14 +137,10 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["title", "description", "status"],
-                "properties": {
-                  "title": { "type": "string" },
-                  "description": { "type": "string" },
-                  "status": { "type": "string" }
-                }
+              "example": {
+                "title": "Homework",
+                "description": "Finish assignment",
+                "status": "pending"
               }
             }
           }
@@ -178,7 +153,6 @@
         }
       }
     },
-
     "/tasks/{id}": {
       "get": {
         "summary": "Get task by ID",
@@ -211,14 +185,10 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["title", "description", "status"],
-                "properties": {
-                  "title": { "type": "string" },
-                  "description": { "type": "string" },
-                  "status": { "type": "string" }
-                }
+              "example": {
+                "title": "Homework",
+                "description": "Finish assignment",
+                "status": "done"
               }
             }
           }
@@ -252,4 +222,3 @@
     }
   }
 }
-
