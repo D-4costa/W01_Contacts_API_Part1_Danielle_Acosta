@@ -49,6 +49,9 @@ app.use(passport.session());
 app.get("/login", (req, res) => {
   res.redirect("/auth/login");
 });
+app.get("/logout", (req, res) => {
+  res.redirect("/auth/logout");
+});
 
 app.use("/auth", authRoutes);
 app.use("/contacts", contactsRoutes);
