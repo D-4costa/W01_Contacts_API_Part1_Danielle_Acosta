@@ -1,27 +1,26 @@
-import express from 'express';
-import passport from 'passport';
+import express from "express";
+import passport from "passport";
 
 const router = express.Router();
 
-router.get(
-  '/login',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
-);
+const githubAuth = passport.authenticate("github", { scope: ["profile", "email"] });
+const githubCallback = passport.authenticate("github", {
+  failureRedirect: "/",
+});
 
-router.get(
-  '/callback',
-  passport.authenticate('google', {
-    failureRedirect: '/'
-  }),
-  (req, res) => {
-    res.redirect('/api-docs');
-  }
-);
+router.get("/login", githubAuth);
+router.get("/github", githubAuth);
 
-// LOGOUT
-router.get('/logout', (req, res) => {
+router.get("/callback", githubCallback, (req, res) => {
+  res.redirect("/api-docs");
+});
+router.get("/github/callback", githubCallback, (req, res) => {
+  res.redirect("/api-docs");
+});
+
+router.get("/logout", (req, res) => {
   req.logout(() => {
-    res.redirect('/');
+    res.redirect("/");
   });
 });
 
